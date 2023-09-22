@@ -11,6 +11,7 @@ import com.yandex.mapkit.directions.driving.DrivingSection;
 import com.yandex.mapkit.directions.driving.DrivingSectionMetadata;
 import com.yandex.mapkit.directions.driving.DrivingSession;
 import com.yandex.mapkit.directions.driving.Weight;
+import com.yandex.mapkit.geometry.PolylinePosition;
 import com.yandex.mapkit.geometry.Subpolyline;
 import com.yandex.runtime.Error;
 
@@ -21,7 +22,7 @@ import java.util.Map;
 
 import io.flutter.plugin.common.MethodChannel;
 
-public class YandexDrivingListener implements DrivingSession.DrivingRouteListener {
+public class YandexDrivingListener implements DrivingSession.DrivingRouteListener  {
   private final MethodChannel.Result result;
 
   public YandexDrivingListener(MethodChannel.Result result) {
@@ -42,7 +43,12 @@ public class YandexDrivingListener implements DrivingSession.DrivingRouteListene
 
 
       Map<String, Object> resultSections = new HashMap<>();
+      Log.d("onDrivingRoutes", "onDrivingRoutes1:0 " + route.getSections().size());
       for (DrivingSection drivingSection : route.getSections()) {
+
+        Log.d("onDrivingRoutes", "onDrivingRoutes1: " + drivingSection.getMetadata().getAnnotation().getToponym());
+        Log.d("onDrivingRoutes", "onDrivingRoutes2: " + drivingSection.getMetadata().getWeight().getDistance().getText());
+        Log.d("onDrivingRoutes", "onDrivingRoutes3: " + drivingSection.getMetadata().getAnnotation().getAction().name());
         Map<String, Object> section = new HashMap<>();
 
         // Metadata
@@ -58,7 +64,7 @@ public class YandexDrivingListener implements DrivingSession.DrivingRouteListene
         resultDrivingWeight.put("distance", Utils.localizedValueToJson(sectionWeight.getDistance()));
 
         // Metadata.Annotation
-        Annotation metaDataAnnotation = drivingSection.getMetadata().getAnnotation();
+        Annotation metaDataAnnotation = drivingSectionMetadata.getAnnotation();
 
         Map<String, Object> resultAnnotation = new HashMap<>();
         Action annonationAction = metaDataAnnotation.getAction();
@@ -72,15 +78,24 @@ public class YandexDrivingListener implements DrivingSession.DrivingRouteListene
         resultDrivingMetadata.put("annotation",resultAnnotation);
         section.put("metadata", resultDrivingMetadata);
 
+        // Geometry
+        Subpolyline drivingSectionGeometry = drivingSection.getGeometry();
+        Map<String, Object> resultGeometryGeometry = new HashMap<>();
+
+        PolylinePosition polylinePositionBegin = drivingSectionGeometry.getBegin();
+        Map<String, Object> resultPolylineBegin = new HashMap<>();
+        resultPolylineBegin.put("segmentIndex", polylinePositionBegin.getSegmentIndex());
+        resultPolylineBegin.put("segmentPosition", polylinePositionBegin.getSegmentPosition());
+        PolylinePosition polylinePositionEnd = drivingSectionGeometry.getEnd();
+
+        Map<String, Object> resultPolylineEnd = new HashMap<>();
+        resultPolylineEnd.put("segmentIndex", polylinePositionEnd.getSegmentIndex());
+        resultPolylineEnd.put("segmentPosition", polylinePositionEnd.getSegmentPosition());
+
+        resultGeometryGeometry.put("begin",resultPolylineBegin);
+        resultGeometryGeometry.put("end",resultPolylineEnd);
+
         resultSections.put("section", section);
-      }
-
-
-
-      for (int i = 0; i < route.getSections().size(); i++) {
-        Log.d("onDrivingRoutes", "onDrivingRoutes: " + route.getSections().get(i).getMetadata().getAnnotation().getToponym());
-        Log.d("onDrivingRoutes", "onDrivingRoutes: " + route.getSections().get(i).getMetadata().getWeight().getDistance().getText());
-        Log.d("onDrivingRoutes", "onDrivingRoutes: " + route.getSections().get(i).getMetadata().getAnnotation().getAction().name());
       }
 
       Map<String, Object> resultRoute = new HashMap<>();
