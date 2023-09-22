@@ -42,13 +42,9 @@ public class YandexDrivingListener implements DrivingSession.DrivingRouteListene
       resultMetadata.put("weight", resultWeight);
 
 
-      Map<String, Object> resultSections = new HashMap<>();
+      List<Map<String, Object>> resultSections = new ArrayList<>();
       Log.d("onDrivingRoutes", "onDrivingRoutes1:0 " + route.getSections().size());
       for (DrivingSection drivingSection : route.getSections()) {
-
-        Log.d("onDrivingRoutes", "onDrivingRoutes1: " + drivingSection.getMetadata().getAnnotation().getToponym());
-        Log.d("onDrivingRoutes", "onDrivingRoutes2: " + drivingSection.getMetadata().getWeight().getDistance().getText());
-        Log.d("onDrivingRoutes", "onDrivingRoutes3: " + drivingSection.getMetadata().getAnnotation().getAction().name());
         Map<String, Object> section = new HashMap<>();
 
         // Metadata
@@ -95,7 +91,9 @@ public class YandexDrivingListener implements DrivingSession.DrivingRouteListene
         resultGeometryGeometry.put("begin",resultPolylineBegin);
         resultGeometryGeometry.put("end",resultPolylineEnd);
 
-        resultSections.put("section", section);
+        section.put("metadata", resultDrivingMetadata);
+        section.put("geometry", resultGeometryGeometry);
+        resultSections.add(section);
       }
 
       Map<String, Object> resultRoute = new HashMap<>();
