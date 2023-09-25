@@ -41,9 +41,16 @@ public class YandexDrivingListener implements DrivingSession.DrivingRouteListene
       Map<String, Object> resultMetadata = new HashMap<>();
       resultMetadata.put("weight", resultWeight);
 
-
       List<Map<String, Object>> resultSections = new ArrayList<>();
-      Log.d("onDrivingRoutes", "onDrivingRoutes1:0 " + route.getSections().size());
+
+      List<Map<String, Object>> resultWaypoints = new ArrayList<>();
+      for (PolylinePosition wayPoint : route.getWayPoints()) {
+        Map<String, Object> resultWayPoint = new HashMap<>();
+        resultWayPoint.put("segmentIndex",wayPoint.getSegmentIndex());
+        resultWayPoint.put("segmentPosition",wayPoint.getSegmentPosition());
+        resultWaypoints.add(resultWayPoint);
+      }
+
       for (DrivingSection drivingSection : route.getSections()) {
         Map<String, Object> section = new HashMap<>();
 
@@ -100,6 +107,7 @@ public class YandexDrivingListener implements DrivingSession.DrivingRouteListene
       resultRoute.put("polyline", Utils.polylineToJson(route.getGeometry()));
       resultRoute.put("sections", resultSections);
       resultRoute.put("metadata", resultMetadata);
+      resultRoute.put("waypoint", resultWaypoints);
 
       resultRoutes.add(resultRoute);
     }
