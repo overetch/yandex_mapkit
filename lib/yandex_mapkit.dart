@@ -75,6 +75,7 @@ part 'src/types/visible_region.dart';
 part 'src/types/action.dart';
 part 'src/types/polyline_position.dart';
 part 'src/types/subpolyline.dart';
+part 'src/types/way_point.dart';
 part 'src/yandex_bicycle.dart';
 part 'src/yandex_driving.dart';
 part 'src/yandex_pedestrian.dart';
