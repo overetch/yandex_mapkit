@@ -107,7 +107,7 @@ public class YandexDrivingListener implements DrivingSession.DrivingRouteListene
       resultRoute.put("polyline", Utils.polylineToJson(route.getGeometry()));
       resultRoute.put("sections", resultSections);
       resultRoute.put("metadata", resultMetadata);
-      resultRoute.put("waypoint", resultWaypoints);
+      resultRoute.put("waypoints", resultWaypoints);
 
       resultRoutes.add(resultRoute);
     }
