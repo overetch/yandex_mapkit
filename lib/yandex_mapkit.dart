@@ -82,3 +82,4 @@ part 'src/yandex_map.dart';
 part 'src/yandex_map_controller.dart';
 part 'src/yandex_search.dart';
 part 'src/yandex_suggest.dart';
+
