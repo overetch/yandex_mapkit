@@ -116,7 +116,7 @@ public class YandexDrivingSession: NSObject {
               return [
                   "polyline": Utils.polylineToJson(route.geometry),
                   "sections": sections,
-                  "wayPoints": wayPoints,
+                  "waypoints": wayPoints,
                   "metadata": [
                       "weight": [
                           "time": Utils.localizedValueToJson(weight.time),
