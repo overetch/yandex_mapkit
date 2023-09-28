@@ -17,7 +17,7 @@ class PedestrianWeight extends Equatable {
     return PedestrianWeight._(
       LocalizedValue._fromJson(json['time']),
       LocalizedValue._fromJson(json['distance']),
-      int.tryParse(json['transfersCount']) ?? 0,
+      int.tryParse(json['transfersCount'].toString()) ?? 0,
     );
   }
 
