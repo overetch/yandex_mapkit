@@ -54,16 +54,17 @@ public class YandexPedestrianListener implements Session.RouteListener {
 
               TravelEstimation estimation = metadata.getEstimation();
               Map<String, Object> resultEstimation = new HashMap<>();
-              resultEstimation.put("departureTime",
-                      estimation == null ? null : Utils.timeToJson(estimation.getDepartureTime()));
-              resultEstimation.put("arrivalTime",
-                      estimation == null ? null : Utils.timeToJson(estimation.getArrivalTime()));
+              if (estimation != null) {
+                resultEstimation.put("departureTime",
+                        Utils.timeToJson(estimation.getDepartureTime()));
+                resultEstimation.put("arrivalTime",
+                        Utils.timeToJson(estimation.getArrivalTime()));
+                resultMetadata.put("estimation", resultEstimation);
+              }
+
 
               resultMetadata.put("weight", resultWeight);
-              resultMetadata.put("estimation", resultEstimation);
-
               resultSection.put("metadata", resultMetadata);
-
               resultSection.put("geometry", Utils.subpolylineToJson(section.getGeometry()));
 
               resultSections.add(resultSection);
