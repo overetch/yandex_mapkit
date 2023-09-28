@@ -10,7 +10,7 @@ class PedestrianTravelEstimation extends Equatable {
 
   const PedestrianTravelEstimation._(this.departureTime, this.arrivalTime);
 
-  factory PedestrianTravelEstimation._fromJson(Map<String, dynamic> json) {
+  factory PedestrianTravelEstimation._fromJson(Map<dynamic, dynamic> json) {
     return PedestrianTravelEstimation._(
       YMKTime._fromJson(json['departureTime']),
       YMKTime._fromJson(json['arrivalTime']),

@@ -13,7 +13,7 @@ class YMKTime extends Equatable {
 
   const YMKTime._(this.value, this.tzOffset, this.text);
 
-  factory YMKTime._fromJson(Map<String, dynamic> json) {
+  factory YMKTime._fromJson(Map<dynamic, dynamic> json) {
     return YMKTime._(
       num.tryParse(json['value']) ?? 0,
       int.tryParse(json['tzOffset']) ?? 0,

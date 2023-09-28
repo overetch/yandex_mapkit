@@ -6,7 +6,7 @@ class PedestrianSectionMetadata extends Equatable {
   final PedestrianWeight weight;
 
   /// Arrival and departure time estimations
-  final PedestrianTravelEstimation estimation;
+  final PedestrianTravelEstimation? estimation;
 
   /// Part of the route polyline for the route leg
   final int legIndex;
@@ -14,10 +14,13 @@ class PedestrianSectionMetadata extends Equatable {
   const PedestrianSectionMetadata._(this.weight, this.estimation, this.legIndex);
 
   factory PedestrianSectionMetadata._fromJson(Map<dynamic, dynamic> json) {
+    final estimation = json['estimation'] != null
+        ? PedestrianTravelEstimation._fromJson(json['estimation'])
+        : null;
     return PedestrianSectionMetadata._(
       PedestrianWeight._fromJson(json['weight']),
-      PedestrianTravelEstimation._fromJson(json['estimation']),
-      int.tryParse(json['legIndex']) ?? 0,
+      estimation,
+      int.tryParse(json['legIndex'].toString()) ?? 0,
     );
   }
 

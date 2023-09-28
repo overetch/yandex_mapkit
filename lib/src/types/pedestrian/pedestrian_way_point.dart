@@ -15,7 +15,7 @@ class PedestrianWayPoint extends Equatable {
   const PedestrianWayPoint._(
       this.position, this.selectedArrivalPoint, this.selectedDeparturePoint);
 
-  factory PedestrianWayPoint._fromJson(Map<String, dynamic> json) {
+  factory PedestrianWayPoint._fromJson(Map<dynamic, dynamic> json) {
     final selectedArrivalPoint = json['selectedArrivalPoint'] != null
         ? Point._fromJson(json['selectedArrivalPoint'])
         : null;

@@ -11,7 +11,7 @@ class PedestrianSection extends Equatable {
 
   const PedestrianSection._(this.metadata, this.geometry);
 
-  factory PedestrianSection._fromJson(Map<String, dynamic> json) {
+  factory PedestrianSection._fromJson(Map<dynamic, dynamic> json) {
     return PedestrianSection._(
       PedestrianSectionMetadata._fromJson(json['metadata']),
       Subpolyline._fromJson(json['geometry']),

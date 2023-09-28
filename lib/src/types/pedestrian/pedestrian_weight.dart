@@ -16,7 +16,7 @@ class PedestrianWeight extends Equatable {
   factory PedestrianWeight._fromJson(Map<dynamic, dynamic> json) {
     return PedestrianWeight._(
       LocalizedValue._fromJson(json['time']),
-      LocalizedValue._fromJson(json['distance']),
+      LocalizedValue._fromJson(json['walkingDistance']),
       int.tryParse(json['transfersCount'].toString()) ?? 0,
     );
   }
