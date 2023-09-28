@@ -76,10 +76,8 @@ public class YandexDrivingListener implements DrivingSession.DrivingRouteListene
         resultAnnotation.put("toponym",metaDataAnnotation.getToponym());
         resultAnnotation.put("descriptionText",metaDataAnnotation.getDescriptionText());
 
-
         resultDrivingMetadata.put("weight",resultDrivingWeight);
         resultDrivingMetadata.put("annotation",resultAnnotation);
-        section.put("metadata", resultDrivingMetadata);
 
         // Geometry
         Subpolyline drivingSectionGeometry = drivingSection.getGeometry();

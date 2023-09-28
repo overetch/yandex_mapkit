@@ -9,6 +9,7 @@ import com.yandex.mapkit.RequestPoint;
 import com.yandex.mapkit.RequestPointType;
 import com.yandex.mapkit.ScreenPoint;
 import com.yandex.mapkit.ScreenRect;
+import com.yandex.mapkit.Time;
 import com.yandex.mapkit.directions.driving.DrivingOptions;
 import com.yandex.mapkit.geometry.BoundingBox;
 import com.yandex.mapkit.geometry.Circle;
@@ -18,6 +19,8 @@ import com.yandex.mapkit.geometry.MultiPolygon;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.geometry.Polygon;
 import com.yandex.mapkit.geometry.Polyline;
+import com.yandex.mapkit.geometry.PolylinePosition;
+import com.yandex.mapkit.geometry.Subpolyline;
 import com.yandex.mapkit.map.CameraPosition;
 import com.yandex.mapkit.map.Rect;
 import com.yandex.mapkit.map.VisibleRegion;
@@ -358,4 +361,30 @@ public class Utils {
 
     return errorMap;
   }
+
+  public static Map<String, Object> timeToJson(Time time) {
+    Map<String, Object> timeArguments = new HashMap<>();
+
+    timeArguments.put("value", time.getValue());
+    timeArguments.put("tzOffset", time.getTzOffset());
+    timeArguments.put("text", time.getText());
+
+    return timeArguments;
+  }
+
+  public static Map<String, Object> polylinePositionToJson(PolylinePosition polylinePosition) {
+    Map<String, Object> polylinePositionArguments = new HashMap<>();
+    polylinePositionArguments.put("segmentIndex", polylinePosition.getSegmentIndex());
+    polylinePositionArguments.put("segmentPosition", polylinePosition.getSegmentPosition());
+    return polylinePositionArguments;
+  }
+
+  public static Map<String, Object> subpolylineToJson(Subpolyline subpolyline) {
+    Map<String, Object> subpolylineArguments = new HashMap<>();
+    subpolylineArguments.put("begin",polylinePositionToJson(subpolyline.getBegin()));
+    subpolylineArguments.put("end",polylinePositionToJson(subpolyline.getEnd()));
+
+    return subpolylineArguments;
+  }
+
 }
