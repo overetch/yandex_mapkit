@@ -1,9 +1,11 @@
 part of yandex_mapkit;
 
-class Subpolyline {
-
+/// A part of a polyline.
+class Subpolyline extends Equatable {
+  /// The start of the selected part of the polyline
   final PolylinePosition begin;
 
+  /// The end of the selected part of the polyline
   final PolylinePosition end;
 
   Subpolyline._(this.begin, this.end);
@@ -15,5 +17,9 @@ class Subpolyline {
     );
   }
 
+  @override
+  List<Object?> get props => [begin, end];
 
+  @override
+  bool? get stringify => true;
 }

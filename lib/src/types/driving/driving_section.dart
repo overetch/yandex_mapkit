@@ -1,13 +1,13 @@
 part of yandex_mapkit;
 
-class DrivingSection {
+class DrivingSection extends Equatable {
   // metadata
   final DrivingSectionsMetadata metadata;
 
   // geometry
   final Subpolyline geometry;
 
-  DrivingSection._(this.metadata, this.geometry);
+  const DrivingSection._(this.metadata, this.geometry);
 
   factory DrivingSection._fromJson(Map<dynamic, dynamic> json) {
     return DrivingSection._(
@@ -16,4 +16,9 @@ class DrivingSection {
     );
   }
 
+  @override
+  List<Object?> get props => [metadata, geometry];
+
+  @override
+  bool? get stringify => true;
 }

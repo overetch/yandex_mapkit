@@ -2,6 +2,7 @@ library yandex_mapkit;
 
 import 'dart:async';
 import 'dart:core';
+import 'dart:developer';
 import 'dart:typed_data'; // ignore: unnecessary_import
 
 import 'package:collection/collection.dart';
@@ -38,9 +39,14 @@ part 'src/types/driving/driving_sections_metadata.dart';
 part 'src/types/driving/driving_section.dart';
 part 'src/types/annotation.dart';
 part 'src/types/driving/driving_session.dart';
-part 'src/types/pedestrian/metadata.dart';
+part 'src/types/pedestrian/pedestrian_route_metadata.dart';
 part 'src/types/pedestrian/pedestrian_route.dart';
 part 'src/types/pedestrian/pedestrian_session.dart';
+part 'src/types/pedestrian/pedestrian_section.dart';
+part 'src/types/pedestrian/pedestrian_section_metadata.dart';
+part 'src/types/pedestrian/pedestrian_weight.dart';
+part 'src/types/pedestrian/pedestrian_travel_estimation.dart';
+part 'src/types/pedestrian/pedestrian_way_point.dart';
 part 'src/types/localized_value.dart';
 part 'src/types/map_alignment.dart';
 part 'src/types/map_animation.dart';
@@ -58,6 +64,7 @@ part 'src/types/map_type.dart';
 part 'src/types/request_point.dart';
 part 'src/types/screen_rect.dart';
 part 'src/types/traffic_level.dart';
+part 'src/types/ymk_time.dart';
 part 'src/types/search/search_address.dart';
 part 'src/types/search/search_component_kind.dart';
 part 'src/types/search/search_item.dart';

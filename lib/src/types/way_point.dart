@@ -1,10 +1,10 @@
 part of yandex_mapkit;
 
-class WayPoint {
+class WayPoint extends Equatable {
   final int segmentIndex;
   final double segmentPosition;
 
-  WayPoint._(this.segmentIndex, this.segmentPosition);
+  const WayPoint._(this.segmentIndex, this.segmentPosition);
 
   factory WayPoint._fromJson(Map<dynamic, dynamic> json) {
     return WayPoint._(
@@ -12,4 +12,10 @@ class WayPoint {
       json["segmentPosition"],
     );
   }
+
+  @override
+  List<Object?> get props => [segmentIndex, segmentPosition];
+
+  @override
+  bool? get stringify => true;
 }

@@ -1,13 +1,13 @@
 part of yandex_mapkit;
 
-class DrivingSectionsMetadata {
+class DrivingSectionsMetadata extends Equatable {
   //annotation
   final Annotation annotation;
 
   //weight
   final DrivingWeight weight;
 
-  DrivingSectionsMetadata._(this.annotation, this.weight);
+  const DrivingSectionsMetadata._(this.annotation, this.weight);
 
   factory DrivingSectionsMetadata._fromJson(Map<dynamic, dynamic> json) {
     return DrivingSectionsMetadata._(
@@ -15,4 +15,10 @@ class DrivingSectionsMetadata {
       DrivingWeight._fromJson(json["weight"]),
     );
   }
+
+  @override
+  List<Object?> get props => [annotation, weight];
+
+  @override
+  bool? get stringify => true;
 }

@@ -68,27 +68,71 @@ public class YandexDrivingSession: NSObject {
   }
 
   private func onSuccess(_ res: [YMKDrivingRoute], _ result: @escaping FlutterResult) {
-    let routes = res.map { (route) -> [String: Any] in
-      let weight = route.metadata.weight
+          let routes = res.map { (route) -> [String: Any] in
+              let weight = route.metadata.weight
 
-      return [
-        "polyline": Utils.polylineToJson(route.geometry),
-        "metadata": [
-          "weight": [
-            "time": Utils.localizedValueToJson(weight.time),
-            "timeWithTraffic": Utils.localizedValueToJson(weight.timeWithTraffic),
-            "distance": Utils.localizedValueToJson(weight.distance)
+              let sections = route.sections.map { (section) -> [String: Any] in
+                  let metadata = section.metadata
+                  let geometry = section.geometry
+
+                  let weight = metadata.weight
+                  let annotation = metadata.annotation
+
+                  let begin = geometry.begin
+                  let end = geometry.end
+                  return [
+                      "metadata": [
+                          "weight": [
+                              "time": Utils.localizedValueToJson(weight.time),
+                              "timeWithTraffic": Utils.localizedValueToJson(weight.timeWithTraffic),
+                              "distance": Utils.localizedValueToJson(weight.distance),
+                          ] as [String : Any],
+                          "annotation": [
+                              "action": annotation.action ?? "",
+                              "toponym": annotation.toponym ?? "",
+                              "descriptionText": annotation.descriptionText,
+                          ] as [String : Any],
+                      ],
+                      "geometry": [
+                          "begin": [
+                              "segmentIndex": begin.segmentIndex,
+                              "segmentPosition": begin.segmentPosition,
+                          ] as [String : Any],
+                          "end": [
+                              "segmentIndex": end.segmentIndex,
+                              "segmentPosition": end.segmentPosition,
+                          ] as [String : Any],
+                      ]
+                  ]
+              }
+
+              let wayPoints = route.wayPoints.map { (wayPoint) -> [String: Any] in
+                  return [
+                      "segmentIndex": wayPoint.segmentIndex,
+                      "segmentPosition": wayPoint.segmentPosition,
+                  ]
+              }
+
+              return [
+                  "polyline": Utils.polylineToJson(route.geometry),
+                  "sections": sections,
+                  "waypoints": wayPoints,
+                  "metadata": [
+                      "weight": [
+                          "time": Utils.localizedValueToJson(weight.time),
+                          "timeWithTraffic": Utils.localizedValueToJson(weight.timeWithTraffic),
+                          "distance": Utils.localizedValueToJson(weight.distance)
+                      ]
+                  ]
+              ]
+          }
+
+          let arguments: [String: Any] = [
+              "routes": routes
           ]
-        ]
-      ]
-    }
 
-    let arguments: [String: Any] = [
-      "routes": routes
-    ]
-
-    result(arguments)
-  }
+          result(arguments)
+      }
 
   private func onError(_ error: Error, _ result: @escaping FlutterResult) {
     result(Utils.errorToJson(error))
